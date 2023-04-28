@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epistimology", "Epistimology\Epistimology.csproj", "{2B1597D1-10DE-4966-87D9-A7E33FD03A9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epistimology_BE", "Epistimology_BE\Epistimology_BE.csproj", "{CAEFC4D1-4D72-4FD2-A7E9-4291F12C46FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B1597D1-10DE-4966-87D9-A7E33FD03A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1597D1-10DE-4966-87D9-A7E33FD03A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1597D1-10DE-4966-87D9-A7E33FD03A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1597D1-10DE-4966-87D9-A7E33FD03A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEFC4D1-4D72-4FD2-A7E9-4291F12C46FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEFC4D1-4D72-4FD2-A7E9-4291F12C46FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEFC4D1-4D72-4FD2-A7E9-4291F12C46FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEFC4D1-4D72-4FD2-A7E9-4291F12C46FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD078474-1536-43CE-AA29-ED50B7BB0E6F}
+	EndGlobalSection
+EndGlobal
