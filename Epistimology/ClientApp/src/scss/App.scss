@@ -1,0 +1,793 @@
+
+$headerbg: rgba(14,23,37,.5);
+$paperSectionbg: rgba(14,23,37,.86);
+$paleyellow: #FFFADD;
+$yellow: #F4E7BD;
+$lightblue: #B9D6ED;
+$medlightblue: #97BFE0;
+$mediumblue: #3E4D64;
+$transparentWhite: rgba(255,255,255,.8);
+$darkestBlue: #0E1725;
+$tabBlue: #30486F;
+$medDarkBlue: #20365A;
+$purple: #85607E;
+
+// Sizes
+$logo-type: 1.8rem;
+$medlarge: .9375rem;
+$medium: .875rem;
+$regular: .8125rem;
+$small: 0.75rem;
+$large: 1.25rem;
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 16px;
+}
+.App {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "lato", sans-serif;
+  background: url("../img/bg_medium.png") repeat 0 0 fixed;
+  font-size: $regular;
+}
+.container {
+  text-align: center;
+  max-width: 100vw;
+  padding: 0px 20px 0px 20px;
+}
+h1.logo {
+  font-family: "relaxia", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $logo-type;
+  color: $paleyellow;
+  margin: 0px;
+}
+
+h2, h2.subheader {
+  font-size: $large;
+  font-weight: 500;
+  text-align: left;
+  color: $paleyellow
+}
+
+h3, .column_title p, .column_title input.formHeaderInput {
+  font-weight: 500;
+  font-size: $medium;
+  color: white;
+  margin: 0;
+  max-width: 100%;
+}
+
+h4 {
+  font-size: $regular;
+  font-weight: 400;
+  color: white;
+}
+
+p, input.formHeaderInput {
+  color: white;
+  font-size: $regular;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+p.label, label p.formLabel {
+  text-transform: uppercase;
+  font-size: $small;
+  color: #B9D6ED;
+  opacity: .7;
+  text-align: left;
+  margin-bottom: 5px;
+}
+p.subtext{
+  opacity: .7;
+  font-style: italic;
+  font-weight: 300;
+}
+p.number {
+  text-align: right;
+}
+
+.overflow_auto {
+  overflow: auto;
+}
+
+input[type=radio] {
+  height: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  background: rgba(255,255,255, 1);
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px $medDarkBlue;
+  width: 12px;
+  margin: 0px 10px 0px 0px;
+  position: relative;
+  top: 2px;
+  outline: 0px;
+  cursor: pointer;
+}
+input[type="radio"]:checked {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+label.radio-label {
+  display: inline-block;
+  text-align: left;
+  margin: 5px 0px 0px 0px;
+  cursor: pointer;
+  color: rgba(255,255,255,.9);
+  font-weight: 300;
+  font-size: $regular;
+  margin-top: 8px;
+}
+
+header {
+  background-color: $headerbg;
+  box-shadow: 2px 3px 4px rgba(0,0,0,.16);
+  padding: 10px 20px 10px 20px;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  
+  .logo {
+    justify-self: left;
+  }
+  .rightSide {
+    justify-self: right;
+
+    button {
+      background-color: transparent;
+      font-weight: 500;
+      font-size: $medium;
+      color: $lightblue;
+      box-shadow: none;
+      text-transform: none;
+      padding: 5px 10px;
+
+      .settingsimg {
+        margin-right: 5px;
+      }
+    }
+    button:hover {
+      background-color: rgba(14,23,37,.4);;
+      border-radius: 4px;
+    }
+    button.selected {
+      background-color: rgba(14,23,37,.4);
+      border-radius: 4px;
+      border: 0px;
+    }
+    
+
+    .settingsMenu {
+      position: fixed;
+      background-color: $lightblue;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px rgba(0,0,0,.16);
+      right: 20px;
+      box-sizing: border-box;
+      max-height: 0px;
+      overflow: hidden;
+      -webkit-transition: max-height ease .5s;
+      -moz-transition: max-height ease .5s; 
+      -ms-transition: max-height ease .5s; 
+      -o-transition: max-height ease .5s; 
+      transition: max-height ease .5s;
+
+      ul {
+        text-decoration: none;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        padding: 10px;
+
+        li {
+          padding: 5px;
+          border-radius: 2px;;
+          cursor: pointer;
+          color: $medDarkBlue;
+        }
+        li:hover {
+          background-color: $medlightblue;
+        }
+      }
+    }
+    .fullSettingsHeight {
+      max-height: 150px;
+    }
+  }
+
+}
+button, input[type=submit] {
+  border: 0px;
+  height: auto;
+  width: auto;
+  font-size: $small;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow: 1px 2px 6px rgba(0,0,0,.3);
+}
+button img {
+  position: relative;
+  top: -2px;
+  margin-right: 5px;
+}
+.primaryButton {
+  background-color: $paleyellow;
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+  color: $darkestBlue;
+  border: 0px;
+  float: right;
+  position: relative;
+  top: 20px;
+  margin-right: 10px;
+
+  img {
+    fill: $darkestBlue
+  }
+}
+.primaryButton:hover {
+  background-color: $yellow;
+  box-shadow: 2px 3px 8px rgba(0,0,0,.3);
+}
+.secondaryButton {
+  padding: 5px 20px 5px 20px;
+  background-color: $medlightblue;
+  border-radius: 5px;
+  color: $darkestBlue;
+}
+
+.thirdButton {
+  color: lightblue;
+  background-color: #3E4D64;
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+}
+
+
+
+.paperRepo {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+/** Tabs, etc **/
+.paperCount {
+  float: right;
+  opacity: .7; 
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.categories {
+  display: inline-flex;
+
+  .category, button {
+    padding: 5px 20px 5px 20px;
+    border-radius: 4px 4px 0px 0px;
+    background-color: $tabBlue;
+    margin-left: 5px;
+    font-weight: 400;
+    font-size: $regular;
+    color: rgba(255,255,255,.65);
+    box-shadow: 2px 3px 8px rgba(0,0,0,.2);
+    cursor: pointer;
+    -webkit-transition: background-color ease-in .1s; 
+    -moz-transition: background-color ease-in .1s; 
+    -ms-transition: background-color ease-in .1s; 
+    -o-transition: background-color ease-in .1s; 
+    transition: background-color ease-in .1s;
+  }
+  .category:hover:not(.selected), button:hover  {
+    background-color: $medDarkBlue;
+  }
+  .selected {
+    background-color: rgba(14,24,37,.86);
+    color: rgba(255,255,255,.9);
+  }
+  button {
+    font-size: $medlarge;
+    font-weight: 800;
+    background-color: $tabBlue;
+    padding: 0px 10px 0px 10px;
+    height: 25px;
+    border-radius: 4px;
+    align-self: center;
+    color: $paleyellow;
+  }
+}
+
+.close-popup {
+  max-width: 18px;
+  float: right;
+  padding: 2px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.close-popup:hover {
+  background-color: rgba(14,23,37,.1);
+}
+
+.popup {
+  display: inline-block;
+  max-width: 90%;
+  width: 450px;
+  background-color: rgba(69, 98, 145, 1);
+  border: solid 1px $tabBlue;
+  box-shadow: 6px 6px 18px rgba(0,0,0,.5);
+  border-radius: 4px;
+  z-index: 1;
+  position: fixed;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  padding-bottom: 30px;
+
+  .popup-header {
+    width: 100px;
+    border-radius: 5px 5px 0px 0px;
+    background-color: rgba(255,255,255,.05);
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    text-align: left;
+    h3 {
+      text-align: left;
+      font-weight: 300;
+      font-size: $medium;
+      opacity: .7;
+      display: inline-block;
+    }
+  }
+  .popup-items{
+    padding: 5px;
+    .popup-item {
+      overflow: auto;
+      border-bottom: solid 1px rgba(0,0,0,.25);
+      padding: 2px 0px 2px 0px;
+
+      .columnRadios {
+        text-align: left;
+        padding-left: 4px;
+        margin-bottom: 5px;
+        p {
+          display: inline-block;
+          margin-right: 10px;
+        }
+
+        label {
+          margin: 0px 12px 0px 0px;
+        }
+        input[type=radio] {
+          margin-right: 4px;
+        }
+      }
+
+      .popup-item-name, .popup-item-description {
+        border-radius: 2px;
+        padding: 4px;
+        margin: 2px 0px 2px 0px;
+        box-sizing: border-box;
+        color: white;
+        pointer-events: none;
+        background-color: transparent;
+        border: solid 1px rgba(205,226,244, 0);
+        float: left;
+      }
+      .popup-item-description {
+        font-weight: 300;
+        display: block;
+        clear: both;
+        width: 100%;
+      }
+      .popup-item-buttons {
+        float: right;
+
+        img {
+          margin-left: 10px;
+          box-sizing: border-box;
+          cursor: pointer;
+          filter: invert(86%) sepia(14%) saturate(662%) hue-rotate(177deg) brightness(97%) contrast(91%);
+        }
+        img:hover {
+          filter: invert(81%) sepia(10%) saturate(1080%) hue-rotate(172deg) brightness(91%) contrast(90%);
+        }
+
+        .updateButtons {
+          display: inline-block;
+          padding: 0px 4px 0px 4px;
+          cursor: pointer;
+          color: $lightblue;
+        }
+        .updateButtons:hover {
+          color: $medlightblue;
+        }
+      }
+    }
+    .editable {
+      .popup-item-name, .popup-item-description {
+        background-color: rgba(205,226,244, .05);
+        border: solid 1px rgba(205,226,244, .07);
+        pointer-events: initial;
+      }
+    }
+  }
+  input.deactivated {
+    box-shadow: 0px 0px transparent;
+    opacity: .4;
+    pointer-events: none;
+  }
+  .catForm {
+    padding: 15px 20px 20px 20px;
+
+    label {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      margin-top: 5px;
+    }
+    label p.formLabel {
+      color: white;
+    }
+    input:not([type=submit]):not([type="radio"]), textarea {
+      color: $transparentWhite;
+      border: solid 0px;
+      width: 100%;
+      background-color: rgba(0,0,0,.2);
+      border: solid 1px rgba(0,0,0,.25);
+      outline: $lightblue;
+      color: rgba(255,255,255,.9);
+      height: 30px;
+      border-radius: 2px;
+      padding: 5px;
+    }
+    textarea {
+      height: 90px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(255,255,255,.4);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    input[type=submit] {
+      margin-left: 10px;
+      float: right;
+    }
+    button.thirdButton {
+      margin-left: 10px;
+      float: right;
+    }
+
+    p {
+      text-align: left;
+    }
+  }
+}
+
+  .tabContainer {
+    display: block;
+    text-align: left;
+  }
+
+/** Paper grid **/
+
+.paperSection {
+  background-color: $paperSectionbg;
+  box-shadow: 2px 3px 8px rgba(0,0,0,.16);
+  border-radius: 4px;
+  max-width: 100%;
+  display: inline-grid;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 10px 10px 10px 10px;
+  text-align: left;
+  flex: auto;
+  text-align: left;
+  width: 100%;
+  min-width: 700px;
+  -webkit-transition: width ease-in .5s; 
+  -moz-transition: width ease-in .5s; 
+  -ms-transition: width ease-in .5s; 
+  -o-transition: width ease-in .5s; 
+  transition: width ease-in .5s;
+}
+
+/** Papers CSS */
+
+.label {
+  border-bottom: solid 1px rgba(255,255,255,.2);
+  padding: 0px 10px 5px 0px;
+  max-width: 100%;
+  padding: 10px 15px 10px 5px;
+}
+
+.paperItem {
+  white-space: nowrap;
+  border-bottom: solid 1px rgba(255,255,255,.08);
+  border-top: solid 1px transparent;
+  max-width: 100%;
+  padding: 3px 10px 3px 0px;
+  height: 40px;
+  cursor: pointer;
+  -webkit-transition: background-color ease-in .5s; 
+  -moz-transition: background-color ease-in .5s; 
+  -ms-transition: background-color ease-in .5s; 
+  -o-transition: background-color ease-in .5s; 
+  transition: background-color ease-in .5s;
+  overflow: hidden;
+
+  p.paperValue {
+    overflow: hidden;
+    padding: 3px 5px 3px 5px;
+    display: inline-block;
+  }
+}
+
+.invisibleRow {
+  height: 0px;
+  padding: 0px;
+  border: 0px;
+  overflow: hidden;
+  -webkit-transition: background-color ease-in .5s; 
+  -moz-transition: background-color ease-in .5s; 
+  -ms-transition: background-color ease-in .5s; 
+  -o-transition: background-color ease-in .5s; 
+  transition: background-color ease-in .5s;
+}
+
+.hoverDarken {
+  background-color:rgba(0,0,0,.2);
+}
+
+.selected {
+  background-color: rgba(255,255,255, .05);
+  border-top: solid 1px $mediumblue;
+
+}
+.selected.start {
+  border-left: solid 1px $mediumblue;
+  border-top-left-radius: 4px;
+}
+.selected.end {
+  border-right: solid 1px $mediumblue;
+  border-top-right-radius: 4px;
+}
+
+/** Column modifiers */
+.numberCol {
+  text-align: right;
+}
+
+/** Tags */
+.tag {
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, .3);
+  margin-right: 5px;
+  display: inline-block;
+
+  p {
+    display: inline;
+    padding: 0px;
+  }
+}
+
+.lightblue {
+  background-color: rgba(151,191,224,.8);
+}
+
+.darkblue {
+  background-color: rgba(69,98,145,.9);
+}
+
+.purple {
+  background-color: rgba(157,117,149,.9);
+}
+
+/** Column Form */ 
+
+input.formHeaderInput {
+  background-color: transparent;
+  border: solid 1px transparent;
+  padding: 3px;
+  border-radius: 2px;
+  text-align: inherit;
+}
+
+.grow-wrap > textarea, .grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 5px;
+  font: inherit;
+  font-weight: 300;
+  font-size: $regular;
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+  border-radius: 2px;
+}
+.grow-wrap {
+  overflow: hidden;
+}
+.grow-wrap > textarea:hover, .grow-wrap > input:hover {
+  background-color: rgba(0,0,0,.1);
+}
+.grow-wrap > textarea.selectedField, .grow-wrap > input.selectedField {
+  background-color: rgba(0,0,0,.3);
+  border: solid 1px $darkestBlue;
+  outline: $lightblue;
+  color: rgba(255,255,255,.9)
+}
+
+/* Form */
+.accordian {
+  overflow: hidden;
+  -webkit-transition: max-height ease-in-out .5s;
+  -moz-transition: max-height ease-in-out .5s; 
+  -ms-transition: max-height ease-in-out .5s; 
+  -o-transition: max-height ease-in-out .5s; 
+  transition: max-height ease-in-out .5s;
+  box-sizing: border-box;
+  .openform {
+    background-color: rgba(255,255,255, .05);
+    border-bottom: solid 1px $mediumblue;
+    border-left: solid 1px $mediumblue;
+    border-right: solid 1px $mediumblue;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin: 0px 0px 5px 0px;
+    height: auto;
+    padding: 10px;
+    box-sizing: border-box;
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-auto-flow: row dense;
+      gap: 10px;
+
+      .entry {
+        margin-bottom: 5px;
+      }
+      .wide {
+        grid-column: 1 / span 2;
+      }
+      .verywide {
+        grid-column: 1 / span 3;
+      }
+      label {
+        display: block;
+      }
+      .grow-wrap {
+        /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+        display: grid;
+      }
+      .grow-wrap::after {
+        /* Note the weird space! Needed to preventy jumpy behavior */
+        content: attr(data-replicated-value) " ";
+      
+        /* This is how textarea text behaves */
+        white-space: pre-wrap;
+      
+        /* Hidden from view, clicks, and screen readers */
+        visibility: hidden;
+      }
+
+      .grow-wrap > textarea {
+        /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+        resize: none;
+      
+        /* Firefox shows scrollbar on growth, you can hide like this. */
+        overflow: hidden;
+      }
+
+
+      .formInput {
+        color: $transparentWhite;
+      }
+      .formLabel {
+        padding: 0px 0px 0px 5px;
+      }
+    }
+    .button-container {
+      display: grid;
+      justify-items: flex-end;
+      grid-auto-flow: column;
+      grid-template-columns: 1fr 90px
+    }
+    .button-container .hidden{
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .form-btn {
+      margin-left: 5px;
+      margin-top: -40px;
+      height: 35px;
+      width: 80px;
+    }
+  }
+}
+
+.closed {
+  max-height: 0px;
+}
+
+/** Add paper form */ 
+.AddPaperForm {
+  max-width: 90%;
+  width: 100%;
+  background-color: $darkestBlue;
+  box-shadow: 6px 6px 18px rgba(0,0,0,.5);
+  border-radius: 4px;
+  padding: 15px 15px 20px 15px;
+  z-index: 1;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  top: 90px;
+
+  h3 {
+    font-size: $medium;
+    font-weight: 400;
+    border-bottom: solid 1px rgba(205,226,244, .1);
+    padding: 0px 5px 10px 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: $paleyellow;
+    opacity: 1;
+  }
+  .addFormFields {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .entry {
+      display: inline-block;
+      padding: 5px;
+      min-width: 400px;
+      flex-grow: 1;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+    }
+
+    input.formInput, textarea {
+      background-color: rgba(205,226,244, .05);
+      border: solid 1px rgba(205,226,244, .07);
+      border-radius: 2px;
+      padding: 8px;
+      color: white;
+      width: 100%;
+    }
+
+    input.formInput:focus, textarea.formInput:focus {
+      border: solid 1px $mediumblue;
+    }
+
+  }
+  
+}
