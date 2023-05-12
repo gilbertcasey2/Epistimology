@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
         });
 });
 builder.Services.AddScoped<IPaperService, PaperService>();
-builder.Services.AddScoped<IMetaServices, MetaService>();
+builder.Services.AddScoped<IOrganizationServices, OrganizationService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -37,9 +37,9 @@ namespace Epistimology_BE.Controllers
         [HttpPost]
         [Route("api/addpaper")]
         [Consumes("application/json")]
-        public IActionResult PostPaper([FromBody] Models.Paper paper)
+        public IActionResult PostPaper([FromBody] Models.Paper paper, List<Models.PaperColumnValue> values)
         {
-            _paperService.Create(paper);
+            _paperService.Create(paper, values);
             return Ok(new { message = "Paper created." });
         }
 

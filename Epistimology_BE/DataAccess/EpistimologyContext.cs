@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Epistimology_BE.Helpers;
+using System.Diagnostics;
 
 namespace Epistimology_BE.DataAccess
 {
@@ -13,6 +14,8 @@ namespace Epistimology_BE.DataAccess
 		public DbSet<Paper> papers { get; set; }
 		public DbSet<Category> categories { get; set; }
         public DbSet<Column> columns { get; set; }
+        public DbSet<Tag> tags { get; set; }
+        public DbSet<PaperColumnValue> paperValues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +28,29 @@ namespace Epistimology_BE.DataAccess
                     fieldSize = Constants.FIELD_SIZES.REGULAR
                 }
             );
+
+            // configures paper to values one-to-many relationship
+            modelBuilder.Entity<PaperColumnValue>()
+                .HasOne<Paper>(p => p.paper)
+                .WithMany(v => v.values)
+                .HasForeignKey(p => p.id);
+
+            // configures column to values one-to-many relationship
+            modelBuilder.Entity<PaperColumnValue>()
+                .HasOne<Column>(c => c.column)
+                .WithMany(v => v.values)
+                .HasForeignKey(c => c.id);
+
+            // configures category to papers one-to-many relationship
+            modelBuilder.Entity<Paper>()
+                .HasOne<Category>(c => c.category)
+                .WithMany(p => p.papers)
+                .HasForeignKey(c => c.id);
+
+            // configures tags to papers many-to-many relationship
+            modelBuilder.Entity<Paper>()
+                .HasMany<Tag>(c => c.tags)
+                .WithMany(p => p.papers);
         }
 
         public EpistimologyContext(IConfiguration configuration)

@@ -5,10 +5,10 @@ namespace Epistimology_BE.Helpers
 	{
 		public enum FIELD_SIZES 
         {
-            REGULAR = 0,
-            WIDE = 1,
-            EXTRA_WIDE = 2,
-            NUMBER = 2,
+            REGULAR = 1,
+            WIDE = 2,
+            EXTRA_WIDE = 3,
+            NUMBER = 0,
         }
     }
 }

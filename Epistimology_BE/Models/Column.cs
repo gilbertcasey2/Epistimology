@@ -14,10 +14,22 @@ namespace Epistimology_BE.Models
 
 		public FIELD_SIZES fieldSize { get; set; }
 
-		public Column()
+        public IList<PaperColumnValue> values;
+
+        public Column()
 		{
 			isDisplay = false;
-		}
-	}
+            this.values = new List<PaperColumnValue>();
+        }
+
+        public Column CopyTo(Column column)
+        {
+            this.name = column.name;
+            this.fieldSize = column.fieldSize;
+			this.isDisplay = column.isDisplay;
+
+            return this;
+        }
+    }
 }
 

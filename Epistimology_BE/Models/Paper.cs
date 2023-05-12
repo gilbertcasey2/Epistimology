@@ -7,25 +7,27 @@ namespace Epistimology_BE.Models
 
 		public string? title { get; set; }
 
-		//public Category category { get; set; }
+		public Category category { get; set; }
 
-		//public IList<PaperColumn> columnsVals { get; set; }
+		public IList<Tag> tags { get; set; }
 
-		//public IList<Tag> tags { get; set; }
+		public IList<PaperColumnValue> values;
 
-		//public PaperModel()
-		//{
-		//	category = new Category()
-		//	{
-		//		id = 0,
-		//		name = "Generic",
-		//		description = "A generic starter category."
-		//	};
+		public Paper()
+		{
+			category = new Category();
+			tags = new List<Tag>();
+			values = new List<PaperColumnValue>();
+		}
 
-		//	tags = new List<Tag>();
-  //          columnsVals = new List<PaperColumn>();
-		//}
+		public void AddValue(Column column, String? p_val)
+		{
+			values.Add(new PaperColumnValue(this, column)
+			{
+				value = p_val
+			});
+		}
 
-    }
+	}
 }
 

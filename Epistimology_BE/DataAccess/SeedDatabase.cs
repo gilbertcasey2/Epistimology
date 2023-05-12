@@ -7,8 +7,8 @@ namespace Epistimology_BE.DataAccess
 	public class SeedDatabase
 	{
         private IPaperService _paperService;
-		private IMetaServices _metaService;
-        public SeedDatabase(IPaperService paperService, IMetaServices metaServices)
+		private IOrganizationServices _metaService;
+        public SeedDatabase(IPaperService paperService, IOrganizationServices metaServices)
 		{
 			_paperService = paperService;
 			_metaService = metaServices;
@@ -19,7 +19,7 @@ namespace Epistimology_BE.DataAccess
 		{
 			int count = _metaService.GetColCount() + 1;
             string title = "Title";
-			Column col = _metaService.GetColByName(title); 
+			Column? col = _metaService.GetColByName(title); 
 
 			if (col == null)
 			{

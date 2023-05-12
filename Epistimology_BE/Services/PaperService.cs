@@ -3,6 +3,8 @@ using System.Linq;
 using Epistimology_BE.Models;
 using Epistimology_BE.DataAccess;
 using Epistimology_BE.Helpers;
+using System.Reflection;
+using Newtonsoft.Json.Linq;
 
 namespace Epistimology_BE.Services
 {
@@ -10,7 +12,7 @@ namespace Epistimology_BE.Services
     {
         IEnumerable<Paper> GetAll();
         Paper GetById(int id);
-        void Create(Paper paper);
+        void Create(Paper paper, List<PaperColumnValue> colVals);
         void Update(int id, Paper paper);
         void Delete(int id);
     }
@@ -36,15 +38,25 @@ namespace Epistimology_BE.Services
             return null;
         }
 
-        public void Create(Paper paper)
+        public void Create(Paper paper, List<PaperColumnValue> colVals)
         {
+            
             // validate
             if (_context.papers.Any(x => x.title == paper.title))
                 throw new AppException("Paper with the title '" + paper.title + "' already exists");
 
-            // do any validation here 
+            // get columns
+            IEnumerable<Column> columns = GetAllColumns();
+            foreach (PaperColumnValue colVal in colVals)
+            {
+                Column? col = GetColByName(colVal.name);
 
-            // save paper
+                if (col != null)
+                {
+                    paper.AddValue(col, colVal.value);
+                }
+            }
+
             _context.papers.Add(paper);
             _context.SaveChanges();
         }
@@ -81,6 +93,12 @@ namespace Epistimology_BE.Services
         public IEnumerable<Column> GetAllColumns()
         {
             return _context.columns;
+        }
+
+        public Column? GetColByName(string? name)
+        {
+            Column? column = _context.columns.Where(b => b.name == name).FirstOrDefault();
+            return column;
         }
     }
 }
