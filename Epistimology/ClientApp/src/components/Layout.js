@@ -16,6 +16,7 @@ export const Layout = () => {
 
     const [columns, setColumns] = useState([])
     const [updateColumns, setUpdateColumns] = useState(true)
+    const [colsLoaded, setColsLoaded] = useState(false)
 
     const [tags, setTags] = useState([])
     const [updateTags, setUpdateTags] = useState(true)
@@ -32,7 +33,12 @@ export const Layout = () => {
         } 
         if(updateColumns) {
             getColumns().then(retrievedCols => {
-                setColumns(retrievedCols);
+                if(retrievedCols == null) {
+                    setColsLoaded(false)
+                  } else {
+                    setColumns(retrievedCols);
+                    setColsLoaded(true)
+                  }  
             });
             setUpdateColumns(false);
         } 
@@ -73,7 +79,7 @@ export const Layout = () => {
         <Fragment>
         <Header openPopup={openSettingsPopop} />
         <div className='container'>
-            <PaperRepo catsLoaded={catsLoaded} categories={categories} columns={columns}/>
+            <PaperRepo catsLoaded={catsLoaded} colsLoaded={colsLoaded} categories={categories} columns={columns}/>
             {settingsPopup()}
         </div>
         </Fragment>

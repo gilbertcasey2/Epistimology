@@ -5,6 +5,7 @@ using Epistimology_BE.DataAccess;
 using Epistimology_BE.Helpers;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using Epistimology_BE.ViewModels;
 
 namespace Epistimology_BE.Services
 {
@@ -12,7 +13,7 @@ namespace Epistimology_BE.Services
     {
         IEnumerable<Paper> GetAll();
         Paper GetById(int id);
-        void Create(Paper paper, List<PaperColumnValue> colVals);
+        Paper? Create(PaperVM paper);
         void Update(int id, Paper paper);
         void Delete(int id);
     }
@@ -38,27 +39,54 @@ namespace Epistimology_BE.Services
             return null;
         }
 
-        public void Create(Paper paper, List<PaperColumnValue> colVals)
+        public Paper? Create(PaperVM p_paper)
         {
-            
+            if (p_paper == null || p_paper.title == null)
+            {
+                return null;
+            }
+
             // validate
-            if (_context.papers.Any(x => x.title == paper.title))
-                throw new AppException("Paper with the title '" + paper.title + "' already exists");
+            if (_context.papers.Any(x => x.title == p_paper.title))
+                throw new AppException("Paper with the title '" + p_paper.title + "' already exists");
+
+            Paper paper = new Paper()
+            {
+                title = p_paper?.title
+            };
+            _context.papers.Add(paper);
 
             // get columns
             IEnumerable<Column> columns = GetAllColumns();
-            foreach (PaperColumnValue colVal in colVals)
+
+            List<PaperColumnValue> paperValues = new List<PaperColumnValue>();
+
+            for (int i = 0; i < p_paper?.values?.Length; i++)
             {
-                Column? col = GetColByName(colVal.name);
+                Dictionary<string, string> field_dict = p_paper.values[i];
+
+                string? name;
+                string? value;
+
+                if (!field_dict.TryGetValue("value", out value) || !field_dict.TryGetValue("name", out name))
+                {
+                    continue;
+                }
+
+                Column? col = GetColByName(name);
 
                 if (col != null)
                 {
-                    paper.AddValue(col, colVal.value);
+                    PaperColumnValue paper_column = new PaperColumnValue()
+                    {
+                        value = value,
+                    };
+                    paper_column.paper = paper;
+                    paperValues.Add(paper_column);
                 }
             }
-
-            _context.papers.Add(paper);
             _context.SaveChanges();
+            return paper;
         }
 
         public void Update(int id, Paper new_paper)

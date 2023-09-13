@@ -4,7 +4,7 @@ import Tag from "./Tag";
 import { savePaper} from '../services/PaperServices'
 
 
-const Paper = ({isVisible, paper, reactKey, columns, paperNumber, expandedColumns}) => {
+const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -40,7 +40,18 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber, expandedColumn
     }
   }, [isOpen, isVisible] )
 
+  const expandedColumns = () => {
+    let colList = []
+    columns.forEach(col => {
+      if (!col.isDisplay) {
+        colList.push(col)
+      }
+    });
+    return colList
+  }
+
   const paperColumnDivs = columns.map((column, index) => {
+    const columnName = column.name.toLowerCase();
     let classes = "column paperItem paperRow" + paperNumber;
     if (!isVisible) {
       classes = "invisibleRow " + classes
@@ -49,17 +60,17 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber, expandedColumn
     isOpen && (classes = classes + " selected");
     (index === 0) && (classes = classes + " start");
     (index === columns.length-1) && (classes = classes + " end");
-    if(column.value === 'title') {
+    if(columnName === 'title') {
       classes = "column_title " + classes;
     }
     else {
-      let datatype = typeof paper[column.value];
+      let datatype = typeof paper[columnName];
       (datatype === 'number') && (classes = 'numberCol ' + classes);
     }
-    if(!isOpen || column.value === 'tags') {
-      return <div key={"paperItem"+index} className={classes} onMouseOut={unhoverDarken} onMouseOver={hoverDarken} onClick={toggleForm}>{column.value === 'tags' ? getTagData() : <p className="paperValue">{formPaper[column.value]}</p>}</div>;
+    if(!isOpen || columnName === 'tags') {
+      return <div key={"paperItem"+index} className={classes} onMouseOut={unhoverDarken} onMouseOver={hoverDarken} onClick={toggleForm}>{columnName === 'tags' ? getTagData() : <p className="paperValue">{formPaper[columnName]}</p>}</div>;
     } else {
-      return <div key={"paperItem"+index} className={classes} onClick={toggleForm}><div className="grow-wrap"><input className={"formHeaderInput"} name={column.value} onChange={(e) => onChangeForm(e)} onClick={noToggleForm} onFocus={addSelectStyle} onBlur={removeSelectStyle} value={formPaper[column.value]} /> </div></div>
+      return <div key={"paperItem"+index} className={classes} onClick={toggleForm}><div className="grow-wrap"><input className={"formHeaderInput"} name={columnName} onChange={(e) => onChangeForm(e)} onClick={noToggleForm} onFocus={addSelectStyle} onBlur={removeSelectStyle} value={formPaper[columnName]} /> </div></div>
     }
   });
 
@@ -105,10 +116,10 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber, expandedColumn
     setformPaper({...paper });
     setFormDirty(false)
   }
-
+  
   return <Fragment>
     {paperColumnDivs}
-    <PaperForm id={reactKey} paper={paper} isOpen={isOpen} removeSelectStyle={removeSelectStyle} addSelectStyle={addSelectStyle} cancelHandler={cancelHandler} onChangeForm={onChangeForm} formPaper={formPaper} formDirty={formDirty} handleSubmit={handleSubmit} expandedColumns={expandedColumns} columns={columns}/>
+    <PaperForm id={reactKey} paper={paper} isOpen={isOpen} removeSelectStyle={removeSelectStyle} addSelectStyle={addSelectStyle} cancelHandler={cancelHandler} onChangeForm={onChangeForm} formPaper={formPaper} formDirty={formDirty} handleSubmit={handleSubmit} expandedColumns={expandedColumns()} columns={columns}/>
     </Fragment>
 }
 

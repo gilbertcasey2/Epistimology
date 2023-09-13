@@ -3,29 +3,21 @@ import Paper from "./Paper";
 import { PAPERS_LOADED, PAPERS_ERROR, PAPERS_EMPTY, PAPERS_LOADING } from '../helpers/constants';
 
 
-const PaperContainer = ({filteredIndexes, papers, columns, expandedColumns, paperStatus}) => {
+const PaperContainer = ({filteredIndexes, papers, columns, expandedColumns, paperStatus, colsLoaded}) => {
 
   const columnDivs = columns.map((column, index) => {
       let classes = "column label";
-      if (paperStatus && papers.length > 0) {
-        
-        if(typeof papers[0][column.value] == "number") {
+      if (papers.length > 0) {
+        if(typeof papers[0][column.name] == "number") {
           classes = "number " + classes;
         }
-        return <p key={column.display + index} className={classes}>{column.display}</p>
+        return <p key={column.name + index} className={classes}>{column.name}</p>
       }
-      return <p key={column.display + index} className={classes}>{column.display}</p>;
+      return <p key={column.name + index} className={classes}>{column.name}</p>;
   });
 
   const paperDivs = papers.map((paper, index) => {
-      console.log("filtered indexes in paper container: " + filteredIndexes.toString())
-      console.log("current index: " + index + " of paper " + paper["title"])
       let isVisible = false;
-      if(filteredIndexes.includes(index)) {
-        console.log("index: " + index + " is included.")
-      } else {
-        console.log("index: " + index + " is not included.")
-      }
       (filteredIndexes.includes(index)) && (isVisible = true)
       return <Paper isVisible={isVisible} expandedColumns={expandedColumns} paperNumber={index} columns={columns} reactKey={"paper"+index} key={"paper"+index} paper={paper} />
     
@@ -56,12 +48,14 @@ const PaperContainer = ({filteredIndexes, papers, columns, expandedColumns, pape
       return <h3>There has been an unknown error.</h3>
     }
   }
-
+  console.log("colsloaded: " + colsLoaded)
   const noPapers = handleLoading();
 
-  return <div className="paperSection" style={makeGridValues()}>
-    {paperStatus ===  columnDivs}
-    {paperStatus === PAPERS_LOADED ? paperDivs : noPapers}
+  return <div className="paperBlue">
+      <div className="paperSection" style={makeGridValues()}>
+      {(paperStatus === PAPERS_LOADED & colsLoaded) && columnDivs}
+      {paperStatus === PAPERS_LOADED ? paperDivs : noPapers}
+      </div>
     </div>
 }
 export default PaperContainer;

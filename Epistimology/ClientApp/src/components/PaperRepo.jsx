@@ -8,7 +8,7 @@ import AddPaper from './AddPaper';
 import addBut from '../img/add.svg'
 
 
-const PaperRepo = ({catsLoaded, categories, columns}) => {
+const PaperRepo = ({catsLoaded, categories, columns, colsLoaded}) => {
 
   const [papers, setPapers] = useState([])
   const [updatePapers, setupdatePapers] = useState(true)
@@ -22,7 +22,6 @@ const PaperRepo = ({catsLoaded, categories, columns}) => {
   useEffect(() => {
     if(updatePapers) {
       getPapers().then(retrievedPapers => {
-        console.log("The retrieved papers: " + retrievedPapers);
         setTimeout(function() {
           if(retrievedPapers == null) {
             setPaperStatus(PAPERS_ERROR)
@@ -40,14 +39,6 @@ const PaperRepo = ({catsLoaded, categories, columns}) => {
       setupdatePapers(false);
     }
   }, [updatePapers, papers]);
-
-
-  const expandedColumns = [{name:'Abstract'},
-  {name:'Notes'},
-  {name:'Citation'},
-  { name:'Key Concepts'},
-  {name:'Interesting Authors'}, 
-  { name:'Key Words'}]
 
   const updateTabPapers = (catName) => {
     setfilteredIndexes([])
@@ -73,8 +64,8 @@ const PaperRepo = ({catsLoaded, categories, columns}) => {
     return<section className="paperRepo">
         <button className="primaryButton addPaper" onClick={toggleAddModal}><img className="addIcon" width={16} src={addBut} alt="add" />Add Paper</button>
         <CategoryTabs updateTabPapers={updateTabPapers} paperStatus={paperStatus} catsLoaded={catsLoaded} paperCount={papers.length} categories={categories}></CategoryTabs>
-        <PaperContainer paperStatus={paperStatus} filteredIndexes={filteredIndexes} papers={papers} expandedColumns={expandedColumns}columns={columns}></PaperContainer>
-        { addPaperModal && <AddPaper expandedColumns={expandedColumns} columns={columns} closeModal={toggleAddModal} /> }
+        <PaperContainer paperStatus={paperStatus} colsLoaded={colsLoaded} filteredIndexes={filteredIndexes} papers={papers} columns={columns}></PaperContainer>
+        { addPaperModal && <AddPaper columns={columns} closeModal={toggleAddModal} /> }
       </section>
 }
 

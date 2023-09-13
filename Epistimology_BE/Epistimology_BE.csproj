@@ -16,6 +16,7 @@
     <None Remove="MySqlConnector" />
     <None Remove="Microsoft.AspNet.WebApi.Core" />
     <None Remove="Services\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
@@ -30,5 +31,6 @@
   <ItemGroup>
     <Folder Include="DataAccess\" />
     <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

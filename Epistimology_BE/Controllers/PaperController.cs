@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Epistimology_BE.DataAccess;
 using Epistimology_BE.Services;
+using Newtonsoft.Json.Linq;
+using Epistimology_BE.Models;
+using Epistimology_BE.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Epistimology_BE.Controllers
 {
-    public class PaperController : Controller
+    public class PaperController : ControllerBase
     {
 
         private readonly ILogger<PaperController> _logger;
@@ -37,10 +40,12 @@ namespace Epistimology_BE.Controllers
         [HttpPost]
         [Route("api/addpaper")]
         [Consumes("application/json")]
-        public IActionResult PostPaper([FromBody] Models.Paper paper, List<Models.PaperColumnValue> values)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult PostPaper([FromBody] PaperVM paper)
         {
-            _paperService.Create(paper, values);
-            return Ok(new { message = "Paper created." });
+            Paper? added_paper = _paperService.Create(paper);
+            return added_paper == null ? NotFound() : Ok(added_paper);
         }
 
         //[HttpPost]

@@ -2,25 +2,28 @@ import {useState } from 'react';
 import { EXTRA_WIDE, REGULAR, WIDE } from '../helpers/constants';
 import { addPaper } from '../services/PaperServices';
 
-const AddPaper = ({closeModal, expandedColumns, columns}) => {
+const AddPaper = ({closeModal, columns}) => {
 
   const [formDirty, setFormDirty] = useState(false)
-  const [formPaper, setformPaper] = useState({});
+  const [formPaper, setformPaper] = useState({"":""});
 
-  const handleSubmit = () => {
-    let colValues = []
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submitting paper!: " + JSON.stringify(formPaper))
+   
     let paper = {}
-    columns.forEach = (col) => {
-      if (col.name === "Title") {
-        paper[col.name] = formPaper[col.name]
+    paper["values"] = [];
+    for (var i = 0; i < columns.length; i++) {
+      console.log("col: " + JSON.stringify(columns[i]))
+      if (columns[i].name === "Title") {
+        paper[columns[i].name] = formPaper[columns[i].name]
       } else {
-        let colVal = {"name": col.name, "value": formPaper[col.name]};
-        colValues.add(colVal);
+        let colVal = {"name": columns[i].name, "value": formPaper[columns[i].name]};
+        paper["values"].push(colVal);
       }
-    };
-    console.log("submitting paper!: " + paper)
-    console.log("submitting values!: " + colValues)
-    addPaper(paper, colValues)
+    }
+    console.log("submitting paper!: " + JSON.stringify(paper))
+    addPaper(paper)
   }
 
   function addSelectStyle(event) {
@@ -53,22 +56,15 @@ const AddPaper = ({closeModal, expandedColumns, columns}) => {
     }
   }
 
-  const formFields = expandedColumns.map((expandedColumn, index) => {
-    return displayField(expandedColumn, index)
-  });
-
   const mainFormFields = columns.map((column, index) => {
     return displayField(column, index)
   });
-
-
 
   return <div className="AddPaperForm">
     <h3>Add Paper</h3>
     <form onSubmit={handleSubmit}>
     <div className="addFormFields">
     {mainFormFields}
-    {formFields}
   </div>
   <input type="submit" className={formDirty ? "secondaryButton form-btn" : "secondaryButton form-btn hidden"} value="Save" />
   <button type="button" onClick={closeModal} className={formDirty ? "thirdButton form-btn" : " thirdButton form-btn hidden"}>Cancel</button>

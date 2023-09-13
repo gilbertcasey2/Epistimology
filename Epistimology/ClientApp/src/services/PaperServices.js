@@ -12,6 +12,7 @@ export async function getPapers() {
 }
 
 export async function addPaper(data) {
+    console.log("paper in save: " + JSON.stringify(data))
     const response = await fetch('https://localhost:7115/api/addpaper', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -176,7 +176,7 @@ header {
       position: fixed;
       background-color: $lightblue;
       border-radius: 4px;
-      box-shadow: 2px 2px 4px rgba(0,0,0,.16);
+      box-shadow: 4px 4px 6px rgba(0,0,0,.2);
       right: 20px;
       box-sizing: border-box;
       max-height: 0px;
@@ -186,6 +186,7 @@ header {
       -ms-transition: max-height ease .5s; 
       -o-transition: max-height ease .5s; 
       transition: max-height ease .5s;
+      z-index: 1;
 
       ul {
         text-decoration: none;
@@ -233,7 +234,7 @@ button img {
   border: 0px;
   float: right;
   position: relative;
-  top: 20px;
+  top: 52px;
   margin-right: 10px;
 
   img {
@@ -274,6 +275,7 @@ button img {
   opacity: .7; 
   margin-right: 5px;
   margin-left: 20px;
+  justify-self: end;
 }
 
 .categories {
@@ -485,32 +487,37 @@ button img {
 }
 
   .tabContainer {
-    display: block;
+    display: grid;
     text-align: left;
+    grid-template-columns: auto 120px;
+    width: 100%;
   }
 
 /** Paper grid **/
-
-.paperSection {
+.paperBlue {
   background-color: $paperSectionbg;
   box-shadow: 2px 3px 8px rgba(0,0,0,.16);
   border-radius: 4px;
   max-width: 100%;
-  display: inline-grid;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  padding: 10px 10px 10px 10px;
-  text-align: left;
-  flex: auto;
-  text-align: left;
-  width: 100%;
-  min-width: 700px;
-  -webkit-transition: width ease-in .5s; 
-  -moz-transition: width ease-in .5s; 
-  -ms-transition: width ease-in .5s; 
-  -o-transition: width ease-in .5s; 
-  transition: width ease-in .5s;
+  padding-top: 50px;
+
+  .paperSection {
+    display: inline-grid;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    flex: auto;
+    text-align: left;
+    width: 100%;
+    min-width: 700px;
+    -webkit-transition: width ease-in .5s; 
+    -moz-transition: width ease-in .5s; 
+    -ms-transition: width ease-in .5s; 
+    -o-transition: width ease-in .5s; 
+    transition: width ease-in .5s;
+  }
 }
 
 /** Papers CSS */

@@ -20,13 +20,6 @@ namespace Epistimology_BE.Models
 			values = new List<PaperColumnValue>();
 		}
 
-		public void AddValue(Column column, String? p_val)
-		{
-			values.Add(new PaperColumnValue(this, column)
-			{
-				value = p_val
-			});
-		}
 
 	}
 }
