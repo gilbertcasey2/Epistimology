@@ -51,7 +51,6 @@ export async function getColumns() {
         return columns;
     }
 }
-
 export async function addColumn(data) {
     const response = await fetch('https://localhost:7115/api/addcolumn', {
         method: 'POST',

@@ -32,20 +32,17 @@ namespace Epistimology_BE.DataAccess
             // configures paper to values one-to-many relationship
             modelBuilder.Entity<PaperColumnValue>()
                 .HasOne<Paper>(p => p.paper)
-                .WithMany(v => v.values)
-                .HasForeignKey(p => p.id);
+                .WithMany(v => v.values);
 
             // configures column to values one-to-many relationship
             modelBuilder.Entity<PaperColumnValue>()
                 .HasOne<Column>(c => c.column)
-                .WithMany(v => v.values)
-                .HasForeignKey(c => c.id);
+                .WithMany(v => v.values);
 
             // configures category to papers one-to-many relationship
             modelBuilder.Entity<Paper>()
                 .HasOne<Category>(c => c.category)
-                .WithMany(p => p.papers)
-                .HasForeignKey(c => c.id);
+                .WithMany(p => p.papers);
 
             // configures tags to papers many-to-many relationship
             modelBuilder.Entity<Paper>()

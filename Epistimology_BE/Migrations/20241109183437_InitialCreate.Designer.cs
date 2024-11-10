@@ -3,6 +3,7 @@ using System;
 using Epistimology_BE.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Epistimology_BE.Migrations
 {
     [DbContext(typeof(EpistimologyContext))]
-    partial class EpistimologyContextModelSnapshot : ModelSnapshot
+    [Migration("20241109183437_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +74,7 @@ namespace Epistimology_BE.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("categoryid")
+                    b.Property<int>("categoryid")
                         .HasColumnType("int");
 
                     b.Property<string>("title")
@@ -144,7 +147,9 @@ namespace Epistimology_BE.Migrations
                 {
                     b.HasOne("Epistimology_BE.Models.Category", "category")
                         .WithMany("papers")
-                        .HasForeignKey("categoryid");
+                        .HasForeignKey("categoryid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("category");
                 });

@@ -7,29 +7,45 @@ const PaperContainer = ({filteredIndexes, papers, columns, expandedColumns, pape
 
   const columnDivs = columns.map((column, index) => {
       let classes = "column label";
-      if (papers.length > 0) {
-        if(typeof papers[0][column.name] == "number") {
-          classes = "number " + classes;
-        }
-        return <p key={column.name + index} className={classes}>{column.name}</p>
+      if (column.isDisplay === false) {
+        classes = "hiddenCol " + classes;
       }
+      if (column.fieldSize === 0) { // A number column
+        classes = "number " + classes;
+      } else if (column.fieldSize === 2) {
+        classes = "wide " + classes;
+      } else if (column.fieldSize === 3) {
+        classes = "extrawide " + classes;
+      }
+      
       return <p key={column.name + index} className={classes}>{column.name}</p>;
   });
 
   const paperDivs = papers.map((paper, index) => {
       let isVisible = false;
       (filteredIndexes.includes(index)) && (isVisible = true)
+      for (let i=0; i < columns.length; i++) {
+        let column_name = columns[i].name.toLowerCase()
+        if (paper.values[i]) {
+          paper[column_name] = paper.values[i].value
+        } else {
+          paper[column_name] = ""
+        }
+      }
       return <Paper isVisible={isVisible} expandedColumns={expandedColumns} paperNumber={index} columns={columns} reactKey={"paper"+index} key={"paper"+index} paper={paper} />
     
   });
   const makeGridValues = () => {
-    let gridColValues = `minmax(0, 3fr) minmax(0, 1.5fr)`;
+    let gridColValues = `minmax(0, 2fr)`;
 
-    for (let i = 2; i < columns.length; i++) {
-      let colValue = ` minmax(0, 1fr)`;
-      (columns[i].display === 'Year' || columns[i].display === 'Interest') && (colValue = ` auto`);
+    for (let i = 1; i < columns.length; i++) {
+      if (columns[i].isDisplay) {
+        let colValue = ` minmax(0, 1fr)`;
+        (columns[i].fieldSize === 0) && (colValue = ` auto`);
+        (columns[i].fieldSize === 2 || columns[i].fieldSize === 3) && (colValue = ` minmax(0, 3fr)`);
+        gridColValues = gridColValues + colValue;
+      }
       
-      gridColValues = gridColValues + colValue;
     }
     const gridStyle = {
       gridTemplateColumns: gridColValues,
@@ -48,7 +64,6 @@ const PaperContainer = ({filteredIndexes, papers, columns, expandedColumns, pape
       return <h3>There has been an unknown error.</h3>
     }
   }
-  console.log("colsloaded: " + colsLoaded)
   const noPapers = handleLoading();
 
   return <div className="paperBlue">

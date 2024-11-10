@@ -5,7 +5,7 @@
 namespace Epistimology_BE.Migrations
 {
     /// <inheritdoc />
-    public partial class ColumnForeignKey : Migration
+    public partial class RemoveTitle : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

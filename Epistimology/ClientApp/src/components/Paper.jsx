@@ -10,7 +10,7 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [formDirty, setFormDirty] = useState(false)
   const [formPaper, setformPaper] = useState(JSON.parse(JSON.stringify(paper)));
-
+  const [isLoading, setIsLoading] = useState(false)
 
   const toggleForm = (e) => {
     setIsOpen(prevState => !prevState)
@@ -43,9 +43,7 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
   const expandedColumns = () => {
     let colList = []
     columns.forEach(col => {
-      if (!col.isDisplay) {
-        colList.push(col)
-      }
+      colList.push(col)
     });
     return colList
   }
@@ -64,13 +62,14 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
       classes = "column_title " + classes;
     }
     else {
-      let datatype = typeof paper[columnName];
-      (datatype === 'number') && (classes = 'numberCol ' + classes);
+      (column.fieldSize === 0) && (classes = 'numberCol ' + classes);
+      (!column.isDisplay) && (classes = 'hiddenCol ' + classes)
     }
+    
     if(!isOpen || columnName === 'tags') {
       return <div key={"paperItem"+index} className={classes} onMouseOut={unhoverDarken} onMouseOver={hoverDarken} onClick={toggleForm}>{columnName === 'tags' ? getTagData() : <p className="paperValue">{formPaper[columnName]}</p>}</div>;
     } else {
-      return <div key={"paperItem"+index} className={classes} onClick={toggleForm}><div className="grow-wrap"><input className={"formHeaderInput"} name={columnName} onChange={(e) => onChangeForm(e)} onClick={noToggleForm} onFocus={addSelectStyle} onBlur={removeSelectStyle} value={formPaper[columnName]} /> </div></div>
+      return <div key={"paperItem"+index} className={classes} onClick={toggleForm}><div className="grow-wrap"><input className={"formHeaderInput"} name={columnName} onChange={(e) => onChangeForm(e)} onClick={noToggleForm} onFocus={addSelectStyle} onBlur={removeSelectStyle} value={(formPaper[columnName] !== null) ? formPaper[columnName] : ""} /> </div></div>
     }
   });
 
@@ -87,6 +86,12 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true)
+    formPaper.values = []
+    for (let i = 0; i < columns.length; i++) {
+      let colName = columns[i].name.toLowerCase();
+      formPaper.values.push({"name":colName, "value": formPaper[colName]});
+    }
     savePaper({ ...paper, ...formPaper})
         .then(response => {
             onPaperUpdate(response);
@@ -103,6 +108,8 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
 
   const onPaperUpdate = (response) => {
     setFormDirty(false)
+    setIsOpen(false)
+    setIsLoading(false)
   }
 
   const onChangeForm = (e) => {
@@ -119,7 +126,7 @@ const Paper = ({isVisible, paper, reactKey, columns, paperNumber}) => {
   
   return <Fragment>
     {paperColumnDivs}
-    <PaperForm id={reactKey} paper={paper} isOpen={isOpen} removeSelectStyle={removeSelectStyle} addSelectStyle={addSelectStyle} cancelHandler={cancelHandler} onChangeForm={onChangeForm} formPaper={formPaper} formDirty={formDirty} handleSubmit={handleSubmit} expandedColumns={expandedColumns()} columns={columns}/>
+    <PaperForm id={reactKey} paper={paper} isOpen={isOpen} removeSelectStyle={removeSelectStyle} addSelectStyle={addSelectStyle} cancelHandler={cancelHandler} onChangeForm={onChangeForm} formPaper={formPaper} formDirty={formDirty} handleSubmit={handleSubmit} expandedColumns={expandedColumns()} columns={columns} loading={isLoading}/>
     </Fragment>
 }
 

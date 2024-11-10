@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Epistimology_BE.Migrations
 {
     [DbContext(typeof(EpistimologyContext))]
-    [Migration("20230607181940_ColumnForeignKey")]
-    partial class ColumnForeignKey
+    [Migration("20241110173452_RemoveTitle")]
+    partial class RemoveTitle
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,10 @@ namespace Epistimology_BE.Migrations
             modelBuilder.Entity("Epistimology_BE.Models.Paper", b =>
                 {
                     b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("categoryid")
                         .HasColumnType("int");
 
                     b.Property<string>("title")
@@ -78,18 +82,31 @@ namespace Epistimology_BE.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("categoryid");
+
                     b.ToTable("papers");
                 });
 
             modelBuilder.Entity("Epistimology_BE.Models.PaperColumnValue", b =>
                 {
-                    b.Property<int?>("id")
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("columnid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("paperid")
                         .HasColumnType("int");
 
                     b.Property<string>("value")
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
+
+                    b.HasIndex("columnid");
+
+                    b.HasIndex("paperid");
 
                     b.ToTable("paperValues");
                 });
@@ -130,9 +147,7 @@ namespace Epistimology_BE.Migrations
                 {
                     b.HasOne("Epistimology_BE.Models.Category", "category")
                         .WithMany("papers")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("categoryid");
 
                     b.Navigation("category");
                 });
@@ -141,15 +156,11 @@ namespace Epistimology_BE.Migrations
                 {
                     b.HasOne("Epistimology_BE.Models.Column", "column")
                         .WithMany("values")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("columnid");
 
                     b.HasOne("Epistimology_BE.Models.Paper", "paper")
                         .WithMany("values")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("paperid");
 
                     b.Navigation("column");
 

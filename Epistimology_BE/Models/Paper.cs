@@ -7,7 +7,7 @@ namespace Epistimology_BE.Models
 
 		public string? title { get; set; }
 
-		public Category category { get; set; }
+		public Category? category { get; set; }
 
 		public IList<Tag> tags { get; set; }
 
@@ -15,11 +15,9 @@ namespace Epistimology_BE.Models
 
 		public Paper()
 		{
-			category = new Category();
 			tags = new List<Tag>();
 			values = new List<PaperColumnValue>();
 		}
-
 
 	}
 }

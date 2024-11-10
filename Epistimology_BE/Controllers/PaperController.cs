@@ -9,6 +9,7 @@ using Epistimology_BE.Services;
 using Newtonsoft.Json.Linq;
 using Epistimology_BE.Models;
 using Epistimology_BE.ViewModels;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,10 +32,16 @@ namespace Epistimology_BE.Controllers
 
         [HttpGet]
         [Route("api/papers")]
-        public IEnumerable<Models.Paper> GetAllPapers()
+        public IActionResult GetAllPapers()
         {
-            var paperList = _paperService.GetAll();
-            return paperList;
+            IEnumerable<PaperReturnVM> papers = _paperService.GetAll();
+            return Ok(
+                JsonConvert.SerializeObject(papers, Formatting.Indented,
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    })
+                );
         }
 
         [HttpPost]
@@ -48,14 +55,14 @@ namespace Epistimology_BE.Controllers
             return added_paper == null ? NotFound() : Ok(added_paper);
         }
 
-        //[HttpPost]
-        //[Route("api/savepaper")]
-        //[Consumes("application/json")]
-        //public Models.PaperModel SavePaper([FromBody] Models.PaperModel item)
-        //{
-
-        //    return paperRepo.UpdatePaper(item);
-        //}
+        [HttpPost]
+        [Route("api/savepaper")]
+        [Consumes("application/json")]
+        public ActionResult SavePaper([FromBody] PaperVM paper)
+        {
+            Paper? updatedPaper = _paperService.Update(paper);
+            return updatedPaper == null ? NotFound() : Ok(updatedPaper);
+        }
 
     }
 }

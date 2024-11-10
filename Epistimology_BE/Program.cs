@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<EpistimologyContext>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CORSPolicy",
@@ -14,7 +15,7 @@ builder.Services.AddCors(options =>
             builder
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("https://localhost:44451");
+            .WithOrigins("https://localhost:44450", "http://localhost:3000");
         });
 });
 builder.Services.AddScoped<IPaperService, PaperService>();

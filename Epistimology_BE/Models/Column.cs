@@ -19,7 +19,7 @@ namespace Epistimology_BE.Models
         public Column()
 		{
 			isDisplay = false;
-            this.values = new List<PaperColumnValue>();
+            values = new List<PaperColumnValue>();
         }
 
         public Column CopyTo(Column column)
